@@ -51,8 +51,6 @@ class Weatherman
   end
 end
 
-object = Weatherman.new(2005, 'lahore_weather', 4, 6)
-object.bar_chart_temperature
 
 
 options = %w[-e -a -c -d]
