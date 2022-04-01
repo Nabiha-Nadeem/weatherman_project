@@ -28,7 +28,7 @@ class Weatherman
     values = [max_temp_val, min_temp_val, max_humid_val]
     dates = [date_max_temp, date_min_temp, date_max_humid]
 
-    print_temperature(values, dates)
+    print_temperature(*values, *dates)
   end
 
   def avg_temperature
@@ -38,7 +38,7 @@ class Weatherman
     max_humid_val = @humidity.sum / @humidity.size.to_f
 
     values = [max_temp_val, min_temp_val, max_humid_val]
-    print_avg_temperature(values)
+    print_avg_temperature(*values)
   end
 
   def bar_chart_temperature
