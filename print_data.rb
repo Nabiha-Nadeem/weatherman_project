@@ -1,22 +1,22 @@
 require 'colorize'
 
 module Print_data
-  def print_temperature(values, dates)
-    puts "Highest: #{values[0]}C on #{dates[0]}"
-    puts "Lowest: #{values[1]}C on #{dates[1]}"
-    puts "Humidity: #{values[2]}% on #{dates[2]}"
+  def print_temperature(max_temp_val, min_temp_val, max_humid_val, date_max_temp, date_min_temp, date_max_humid)
+    puts "Highest: #{max_temp_val}C on #{date_max_temp}"
+    puts "Lowest: #{min_temp_val}C on #{date_min_temp}"
+    puts "Humidity: #{max_humid_val}% on #{date_max_humid}"
     puts " "
   end
 
-  def print_avg_temperature(values)
-    puts "Highest Average: #{values[0]}C"
-    puts "Lowest Average: #{values[1]}C"
-    puts "Humidity Average: #{values[2]}%"
+  def print_avg_temperature(max_temp_val, min_temp_val, max_humid_val)
+    puts "Highest Average: #{max_temp_val}C"
+    puts "Lowest Average: #{min_temp_val}C"
+    puts "Humidity Average: #{max_humid_val}%"
     puts " "
   end
 
-  def print_two_barchart(arr1, arr2, arr3)
-    arr1.zip(arr2, arr3).each do |date, max, min|
+  def print_two_barchart(dates, max_temp, min_temp)
+    dates.zip(max_temp, min_temp).each do |date, max, min|
       print "#{'%02d' % date_converter(date)} ".italic
       if max
         max.times do
@@ -40,8 +40,8 @@ module Print_data
     print "\n"
   end
 
-  def print_one_barchart(arr1, arr2, arr3)
-    arr1.zip(arr2, arr3).each do |date, max, min|
+  def print_one_barchart(dates, max_temp, min_temp)
+    dates.zip(max_temp, min_temp).each do |date, max, min|
       print "#{'%02d' % date_converter(date)} ".italic
       if max
         max.times do
