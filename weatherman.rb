@@ -53,26 +53,33 @@ end
 
 
 
-options = %w[-e -a -c -d]
-directories = %w[Murree_weather lahore_weather Dubai_weather]
-length_year_string = [4, 6, 7]
-if (options).include? ARGV[0] and (length_year_string).include? ARGV[1].length and (directories).include? ARGV[2]
-  if ARGV[0] == options[0]
+def validation(option, year, directory)
+  options = %w[-e -a -c -d]
+  directories = %w[Murree_weather lahore_weather Dubai_weather]
+  length_year_string = [4, 6, 7]
+  if (options).include? option and (length_year_string).include? year.length and (directories).include? directory
+    return true
+  else
+    raise "Invalid arguments passed"
+  end
+end
+
+
+if validation(ARGV[0], ARGV[1], ARGV[2])
+  if ARGV[0] == '-e'
     object = Weatherman.new(ARGV[1].to_i, ARGV[2], 1)
     object.temperature
   else
-    if ARGV[0] == options[1]
+    if ARGV[0] == '-a'
       task = 2
-      function = lambda {|object| object.avg_temperature}
+      task_to_perform = lambda {|object| object.avg_temperature}
     else
-      function = lambda {|object| object.bar_chart_temperature}
-      (task = 3) if (ARGV[0] == options[2])
-      (task = 4) if (ARGV[0] == options[3])
+      task_to_perform = lambda {|object| object.bar_chart_temperature}
+      (task = 3) if (ARGV[0] == '-c')
+      (task = 4) if (ARGV[0] == '-d')
     end
     object = Weatherman.new(ARGV[1].split('/')[0].to_i, ARGV[2], task, ARGV[1].split('/')[1].to_i)
-    function.call(object)
+    task_to_perform.call(object)
   end
-else
-  raise 'Invalid arguments passed.'
 end
 
